@@ -1,0 +1,25 @@
+body {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Tahoma', sans-serif;
+}
+.navbar {
+    text-align: right;
+}
+
+.nav-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.brand-logo {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+.right.hide-on-med-and-down {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+}
