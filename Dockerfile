@@ -1,7 +1,7 @@
 # Dockerfile
 
 # --- Base Stage ---
-FROM php:7.4-apache as base
+FROM php:7.4.33-apache-buster as base
 # Install system dependencies and PHP extensions required by Laravel
 RUN apt-get update && apt-get install -y \
       gnupg \
