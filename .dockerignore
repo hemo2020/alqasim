@@ -1,0 +1,26 @@
+# .dockerignore
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile
+
+# Local environment
+.env
+
+# Node modules
+node_modules
+
+# Vendor directory (managed by Composer)
+vendor
+
+# Log files
+storage/logs
+*.log
+
+# IDE / Editor specific
+.idea
+.vscode

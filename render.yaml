@@ -1,0 +1,77 @@
+# render.yaml
+
+services:
+  # Web Service (your Laravel app)
+  - type: web
+    name: laravel-app
+    env: docker
+    dockerfile: Dockerfile
+    healthCheckPath: /
+    envVars:
+      # App
+      - key: APP_NAME
+        value: "Laravel Real Estate"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      # IMPORTANT: Change this to your app's URL on Render after your first deploy
+      - key: APP_URL
+        value: https://your-app-name.onrender.com
+      - key: APP_KEY
+        generateValue: true # Render will generate a value for this
+
+      # Database (connecting to the PostgreSQL service below)
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromService:
+          type: db
+          name: database
+          property: host
+      - key: DB_PORT
+        fromService:
+          type: db
+          name: database
+          property: port
+      - key: DB_DATABASE
+        fromService:
+          type: db
+          name: database
+          property: database
+      - key: DB_USERNAME
+        fromService:
+          type: db
+          name: database
+          property: user
+      - key: DB_PASSWORD
+        fromService:
+          type: db
+          name: database
+          property: password
+
+      # Cache and Session
+      - key: CACHE_DRIVER
+        value: database
+      - key: SESSION_DRIVER
+        value: database
+
+      # Mail (add your own mail service credentials)
+      - key: MAIL_DRIVER
+        value: smtp
+      - key: MAIL_HOST
+        value: smtp.mailtrap.io # Example
+      - key: MAIL_PORT
+        value: 2525 # Example
+      - key: MAIL_USERNAME
+        value: # TODO: Add your mail username
+      - key: MAIL_PASSWORD
+        value: # TODO: Add your mail password
+      - key: MAIL_ENCRYPTION
+        value: tls # Example
+
+  # PostgreSQL Database (Free Tier)
+  - type: db
+    name: database
+    engine: postgres
+    plan: free
