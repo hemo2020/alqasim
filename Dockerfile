@@ -4,17 +4,21 @@
 FROM php:7.4-apache as base
 # Install system dependencies and PHP extensions required by Laravel
 RUN apt-get update && apt-get install -y \
+      gnupg \
+      curl \
       libzip-dev \
       zip \
       unzip \
       libpng-dev \
       libjpeg-dev \
       libfreetype6-dev \
-      nodejs \
-      npm \
+      && curl -sL https://deb.nodesource.com/setup_18.x | bash - \
+      && apt-get install -y nodejs \
       && docker-php-ext-configure gd --with-freetype --with-jpeg \
       && docker-php-ext-install gd \
-      && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip
+      && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip \
+      && apt-get clean \
+      && rm -rf /var/lib/apt/lists/*
 # Configure Apache
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
