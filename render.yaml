@@ -1,4 +1,7 @@
-# render.yaml
+databases:
+  # Free-tier PostgreSQL database
+  - name: database
+    plan: free
 
 services:
   # Web Service (your Laravel app)
@@ -21,34 +24,13 @@ services:
       - key: APP_KEY
         generateValue: true # Render will generate a value for this
 
-      # Database (connecting to the PostgreSQL service below)
+      # Database (Render provides the DATABASE_URL from the service above)
       - key: DB_CONNECTION
         value: pgsql
-      - key: DB_HOST
-        fromService:
-          type: db
+      - key: DATABASE_URL
+        fromDatabase:
           name: database
-          property: host
-      - key: DB_PORT
-        fromService:
-          type: db
-          name: database
-          property: port
-      - key: DB_DATABASE
-        fromService:
-          type: db
-          name: database
-          property: database
-      - key: DB_USERNAME
-        fromService:
-          type: db
-          name: database
-          property: user
-      - key: DB_PASSWORD
-        fromService:
-          type: db
-          name: database
-          property: password
+          property: connectionString
 
       # Cache and Session
       - key: CACHE_DRIVER
@@ -69,9 +51,3 @@ services:
         value: # TODO: Add your mail password
       - key: MAIL_ENCRYPTION
         value: tls # Example
-
-  # PostgreSQL Database (Free Tier)
-  - type: db
-    name: database
-    engine: postgres
-    plan: free
