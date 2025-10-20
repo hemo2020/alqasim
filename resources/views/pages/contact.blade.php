@@ -59,9 +59,13 @@
                             </div>
 
                             <div class="input-field col s12">
-                                <i class="material-icons prefix">mode_edit</i>
-                                <textarea id="message" name="message" class="materialize-textarea"></textarea>
-                                <label for="message">محتوى الرسالة</label>
+                                <select name="service">
+                                    <option value="" disabled selected>Choose your service</option>
+                                    @foreach($services as $service)
+                                        <option value="{{ $service->title }}">{{ $service->title }}</option>
+                                    @endforeach
+                                </select>
+                                <label>الخدمات</label>
                             </div>
                             
                             <button id="msgsubmitbtn" class="btn waves-effect waves-light indigo darken-4 btn-large" type="submit">

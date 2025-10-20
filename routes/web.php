@@ -4,6 +4,8 @@ Route::get('/lang/{locale}', function ($locale) {
     return redirect()->back();
 });
 
+Route::get('/seed-slider', 'FrontpageController@seedSlider')->name('seed-slider');
+
 // FRONT-END ROUTES
 Route::get('/', 'FrontpageController@index')->name('home');
 Route::get('/slider', 'FrontpageController@slider')->name('slider.index');
@@ -32,6 +34,8 @@ Route::get('/blog/author/{username}', 'PagesController@blogAuthor')->name('blog.
 
 Route::get('/contact', 'PagesController@contact')->name('contact');
 Route::post('/contact', 'PagesController@messageContact')->name('contact.message');
+
+
 
 
 Auth::routes();

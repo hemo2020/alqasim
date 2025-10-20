@@ -8,6 +8,7 @@ use App\Property;
 use App\Service;
 use App\Slider;
 use App\Post;
+use Illuminate\Support\Facades\Storage;
 
 class FrontpageController extends Controller
 {
@@ -71,6 +72,26 @@ class FrontpageController extends Controller
                                 ->paginate(10); 
 
         return view('pages.search', compact('properties'));
+    }
+
+    public function seedSlider()
+    {
+        $imageName = 'home.jpg';
+        $imagePath = public_path('demo/' . $imageName);
+
+        if (!Storage::disk('public')->exists('slider')) {
+            Storage::disk('public')->makeDirectory('slider');
+        }
+
+        Storage::disk('public')->put('slider/' . $imageName, file_get_contents($imagePath));
+
+        $slider = new Slider();
+        $slider->title = 'New Slider';
+        $slider->description = 'This is a new slider added via seed.';
+        $slider->image = $imageName;
+        $slider->save();
+
+        return redirect()->route('home')->with('success', 'Slider seeded successfully.');
     }
 
 }

@@ -19,6 +19,12 @@ class ChangePricePrecisionInPropertiesTable extends Migration
     {
         $driver = DB::getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME);
 
+        if ($driver === 'sqlite') {
+            // SQLite does not support altering column types in this migration.
+            // Skip the change for local/dev sqlite usage.
+            return;
+        }
+
         if (in_array($driver, ['mysql', 'mysqli'])) {
             // MySQL/MariaDB: change column using MODIFY
             DB::statement("ALTER TABLE `properties` MODIFY `price` DECIMAL(12,2) NOT NULL");

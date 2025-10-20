@@ -14,6 +14,7 @@ use App\Comment;
 use App\Rating;
 use App\Post;
 use App\User;
+use App\Service;
 
 use Carbon\Carbon;
 use Auth;
@@ -191,7 +192,8 @@ class PagesController extends Controller
     public function contact()
     {
         $contactsettings = \App\Setting::all();
-        return view('pages.contact', compact('contactsettings'));
+        $services = \App\Service::orderBy('service_order')->get();
+        return view('pages.contact', compact('contactsettings', 'services'));
     }
 
     public function messageContact(Request $request)
@@ -200,6 +202,7 @@ class PagesController extends Controller
             'name'      => 'required',
             'email'     => 'required',
             'phone'     => 'required',
+            'service'   => 'required',
             'message'   => 'required'
         ]);
 
@@ -211,6 +214,7 @@ class PagesController extends Controller
             'name'      => $request->name,
             'email'     => $mailfrom,
             'phone'     => $request->phone,
+            'service'   => $request->service,
             'message'   => $message
         ]);
             

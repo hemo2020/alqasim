@@ -65,5 +65,6 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        $this->call(SliderSeeder::class);
     }   
 }   

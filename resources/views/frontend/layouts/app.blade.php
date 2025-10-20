@@ -68,7 +68,18 @@
 
         <script>
         $(document).ready(function(){
-            $('.sidenav').sidenav();
+            console.log("Document ready!");
+            var sidenav_elements = $('.sidenav');
+            console.log("Sidenav elements found:", sidenav_elements.length);
+            sidenav_elements.sidenav();
+            console.log("Sidenav initialized.");
+
+            $('#mobile-demo a').on('click', function(e) {
+                console.log("Sidenav link clicked:", this.href);
+                // Close the sidenav
+                $('.sidenav').sidenav('close');
+                // Allow default navigation
+            });
 
             $('.carousel.carousel-slider').carousel({
                 fullWidth: true,
@@ -89,6 +100,7 @@
             });
 
             $('.tooltipped').tooltip();
+            $('.collapsible').collapsible();
 
         });
         </script>
